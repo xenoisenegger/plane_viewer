@@ -1,9 +1,10 @@
 package guilib;
 
 
-public abstract class Labeled extends Control{
+public abstract class Labeled extends Control {
     private TextAlignment textAlignment;
     private String text;
+
     public Labeled(float x, float y, String text, TextAlignment textAlignment) {
         super(x, y);
         this.textAlignment = textAlignment;

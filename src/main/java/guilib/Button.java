@@ -3,7 +3,10 @@ package guilib;
 import io.github.humbleui.jwm.Event;
 import io.github.humbleui.jwm.EventMouseButton;
 import io.github.humbleui.jwm.EventMouseMove;
-import io.github.humbleui.skija.*;
+import io.github.humbleui.skija.Canvas;
+import io.github.humbleui.skija.Color4f;
+import io.github.humbleui.skija.Font;
+import io.github.humbleui.skija.Paint;
 import io.github.humbleui.types.Point;
 import io.github.humbleui.types.RRect;
 
@@ -19,13 +22,16 @@ public class Button extends Labeled {
     }
 
     private int fontSize;
+
     private float width;
+
+    private float height;
     private float x;
     private float y;
     private Color4f backgroundColor;
     private Color4f hoverBackgroundColor;
     private Color4f pressedBackgroundColor;
-    private  Color4f textColor;
+    private Color4f textColor;
     private boolean isHover;
     private Color4f originalColor;
 
@@ -41,6 +47,7 @@ public class Button extends Labeled {
         this.textColor = DEFAULTTEXTCOLOR;
         this.fontSize = DEFAULTFONTSIZE;
     }
+
     public Button(Point point, float width, String text) {
         super(point.getX(), point.getY(), text, TextAlignment.CENTER);
         this.width = width;
@@ -52,7 +59,9 @@ public class Button extends Labeled {
         this.pressedBackgroundColor = DEFAULTPRESSEDBACKGROUNDCOLOR;
         this.textColor = DEFAULTTEXTCOLOR;
         this.fontSize = DEFAULTFONTSIZE;
+        this.height = getHeight();
     }
+
     private Font font() {
         return new Font(DEFAULT_TYPEFACE, fontSize);
     }
@@ -64,7 +73,7 @@ public class Button extends Labeled {
     @Override
     public boolean isInside(int x, int y) {
         return x >= this.getX() && x <= this.getX() + getWidth()
-                && y >= this.getY() && y <= this.getY() + getHeight();
+                && y >= this.getY() && y <= this.getY() + height;
     }
 
     public float getHeight() {
@@ -85,6 +94,7 @@ public class Button extends Labeled {
         setDirty();
         this.text = text;
     }
+
     public Color4f getBackgroundColor() {
         return backgroundColor;
     }
@@ -130,6 +140,14 @@ public class Button extends Labeled {
         this.onAction = onAction;
     }
 
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
 
     @Override
     public void handleEvent(Event e) {
@@ -159,10 +177,10 @@ public class Button extends Labeled {
 
     @Override
     public void paint(Canvas canvas) {
-        RRect rrect = RRect.makeXYWH(getX(), getY(), getWidth(), getHeight(), 5);
+        RRect rrect = RRect.makeXYWH(getX(), getY(), getWidth(), height, 5);
         canvas.drawRRect(rrect, new Paint().setColor4f(backgroundColor));
         float horizontalTextCenterAlligmentTextCenterAlligment = getX() + ((getWidth() / 2) - font().measureTextWidth(text) / 2);
-        float verticalTextCenterAlligment = getY() + (getHeight() / 2) - (font().getMetrics().getAscent() / 2);
+        float verticalTextCenterAlligment = getY() + (height / 2) - (font().getMetrics().getAscent() / 2);
         canvas.drawString(text, horizontalTextCenterAlligmentTextCenterAlligment, verticalTextCenterAlligment, font(), new Paint().setColor4f(textColor));
     }
 }

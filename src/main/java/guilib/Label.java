@@ -7,7 +7,7 @@ import io.github.humbleui.skija.Font;
 import io.github.humbleui.skija.Paint;
 import io.github.humbleui.types.Point;
 
-public class Label extends Labeled{
+public class Label extends Labeled {
     private static final Color4f DEFAULTTEXTCOLOR = new Color4f(0, 0, 0, 1);
     private Color4f textColor;
     private float x;
@@ -35,6 +35,7 @@ public class Label extends Labeled{
         this.textColor = DEFAULTTEXTCOLOR;
         this.fontSize = DEFAULTFONTSIZE;
     }
+
     public float getWidth() {
         return width;
     }
@@ -49,6 +50,7 @@ public class Label extends Labeled{
         this.fontSize = fontSize;
         setDirty();
     }
+
     public Color4f getTextColor() {
         return textColor;
     }
@@ -57,10 +59,12 @@ public class Label extends Labeled{
         setDirty();
         this.textColor = textColor;
     }
-    public Font font(){
+
+    public Font font() {
         setDirty();
         return new Font(DEFAULT_TYPEFACE, fontSize);
     }
+
     @Override
     public float getHeight() {
         return font().getMetrics().getHeight();
@@ -79,18 +83,20 @@ public class Label extends Labeled{
     @Override
     public void handleEvent(Event scaledEvent) {
     }
-    public float getAscent(){
+
+    public float getAscent() {
         return font().getMetrics().getAscent();
     }
+
     @Override
     public void paint(Canvas canvas) {
-        if (getTextAlignment() == TextAlignment.CENTER){
+        if (getTextAlignment() == TextAlignment.CENTER) {
             textPositionX = getX() + ((getWidth() / 2) - font().measureTextWidth(getText()) / 2);
         } else if (getTextAlignment() == TextAlignment.LEFT) {
             textPositionX = getX();
         } else if (getTextAlignment() == TextAlignment.RIGHT) {
             textPositionX = getX() + getWidth() - font().measureTextWidth(getText());
         }
-        canvas.drawString(getText(), textPositionX , getY() + getHeight(), font(), new Paint().setColor4f(getTextColor()));
+        canvas.drawString(getText(), textPositionX, getY() + getHeight(), font(), new Paint().setColor4f(getTextColor()));
     }
 }

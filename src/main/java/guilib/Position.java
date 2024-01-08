@@ -4,7 +4,8 @@ import io.github.humbleui.types.Point;
 
 public final class Position {
 
-    private Position() {} // no need to instantiate
+    private Position() {
+    } // no need to instantiate
 
     public static Point at(Control control) {
         return new Point(control.getX(), control.getY());

@@ -48,7 +48,7 @@ public abstract class Application {
         } else {
             var scaledEvent = scaleMouseCoordinates(e);
             controls.handleEvent(scaledEvent);
-            if (controls.clearDirty()){
+            if (controls.clearDirty()) {
                 window.requestFrame();
             }
         }

@@ -9,12 +9,13 @@ import io.github.humbleui.skija.PaintMode;
 import io.github.humbleui.types.Point;
 import io.github.humbleui.types.RRect;
 
-public class Checkbox extends Control{
+public class Checkbox extends Control {
 
     private boolean state;
     private String text;
     private Font font;
     private int cellSize;
+
     public Checkbox(Point point, String text) {
         super(point.getX(), point.getY());
         this.state = false;
@@ -44,7 +45,7 @@ public class Checkbox extends Control{
         if (e instanceof EventMouseButton mb
                 && mb.isPressed()
                 && isChecked()
-                && isInside(mb.getX(), mb.getY())){
+                && isInside(mb.getX(), mb.getY())) {
             setChecked(false);
         } else if (e instanceof EventMouseButton mb
                 && mb.isPressed()
@@ -58,10 +59,10 @@ public class Checkbox extends Control{
     protected void paint(Canvas canvas) {
         RRect rrect = RRect.makeXYWH(getX(), getY(), cellSize, cellSize, 5);
         canvas.drawRRect(rrect, new Paint().setColor4f(DEFAULT_BORDER_COLOR).setMode(PaintMode.STROKE).setStrokeWidth(2));
-        canvas.drawString(getText(), getX() + cellSize + 10, getY() + (cellSize / 2) - (getHeight() / 2) ,font, new Paint());
-        if (isChecked()){
-            canvas.drawLine(getX() + 4, getY() + 4, getX() + 16, getY() + 16,new Paint().setStrokeWidth(2));
-            canvas.drawLine(getX() + 4, getY() + 16, getX() + 16, getY() + 4,new Paint().setStrokeWidth(2));
+        canvas.drawString(getText(), getX() + cellSize + 10, getY() + (cellSize / 2) - (getHeight() / 2), font, new Paint());
+        if (isChecked()) {
+            canvas.drawLine(getX() + 4, getY() + 4, getX() + 16, getY() + 16, new Paint().setStrokeWidth(2));
+            canvas.drawLine(getX() + 4, getY() + 16, getX() + 16, getY() + 4, new Paint().setStrokeWidth(2));
         }
     }
 
